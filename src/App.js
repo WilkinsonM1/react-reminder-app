@@ -1,26 +1,26 @@
 import React from 'react';
 import logo from './logo.svg';
+import Reminder from './components/reminder'
 import './App.css';
 
-function App() {
+class App extends React.Component {
+  render() {
+
+  fetch('http://localhost:3003/data')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    let data = myJson
+    return data;
+  })
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Reminder />
     </div>
   );
+  }
 }
 
 export default App;
