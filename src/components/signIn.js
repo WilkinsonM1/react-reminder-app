@@ -3,9 +3,9 @@ import React, {Component} from 'react'
 // the sign in component with display an input box where user types in her username and a submit button which
 // will then go on to change the state inside out app class compponent to show she has signed in and show the list of reminders and AddReminder component
 // there will also be a "forgot your username?" which the user can click on which display a different from where user inputs her email instead.
-const SignIn  = ({ props, state }) => {
+const SignIn  = ({ props }) => {
 
-    switch(state){
+    switch(props.state){
         case 'forgotUser':
             return  <div className='sign-in'>
                         <form className="sign-in-form" onSubmit={props.onSubmit}>
