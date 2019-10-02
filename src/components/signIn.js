@@ -8,6 +8,7 @@ const SignIn  = ( props ) => {
     if(props.forgotUser === true){
         return (
             <div className='sign-in'>
+                <h1>Sign in here:</h1>
                 <form className="sign-in-form" onSubmit={props.onSubmit}>
                     <input type='text' className='input-email-sign-in'
                             placeholder='Email'/>
@@ -18,6 +19,7 @@ const SignIn  = ( props ) => {
         } else {
         return (
             <div className='sign-in'>
+                <h1>Sign in here:</h1>
                 <form className="sign-in-form" onSubmit={props.onSubmit}>
                     <input  type='text'
                             className='input-username-sign-in'
