@@ -15,6 +15,7 @@ class App extends Component {
   }
 
 
+
  componentDidMount() {
   fetch('http://localhost:3003/data', {
     method: 'POST',
@@ -36,6 +37,7 @@ class App extends Component {
     console.log('hello from data');
   })
 }
+
 
   signUpHandler = () => {
     if (this.state.email != null && this.state.username != null) {
@@ -59,8 +61,7 @@ class App extends Component {
   forgotHandler = () => {
     this.setState({
       forgotUser: true
-    }
-    )
+    })
   }
 
   render(){
