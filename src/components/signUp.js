@@ -5,11 +5,11 @@ const SignUp = (props) => {
     return (
         <div>
             <h1>Register here:</h1>
-            <form className='sign-up-form' onSubmit={props.onSubmit}>
+            
                 <input type='text' className='input-email-sign-up' placeholder='Email' onChange={event => props.emailHandler(event)}/>
                 <input type='text' className='username' placeholder='Username' onChange={event => props.usernameHandler(event)}/>
                 <button onClick={props.signedUpHandler}>Submit</button>
-            </form>
+            
         </div>
     )
 }

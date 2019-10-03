@@ -17,28 +17,24 @@ class App extends Component {
   }
 
 
-
  componentDidMount() {
-  fetch('http://localhost:3003/data', {
-    method: 'POST',
-    content: 'application/json',
-    body: JSON.stringify({
-      email: '',
-      username: '',
-      reminder: ''
-    })
-  })
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(myJson) {
-    let data = myJson
-    return data;
-  })
-  .then(function(data) {
-    console.log('hello from data');
+  fetch('http://localhost:3003/data')
+  .then(response => response.json())
+  .then(data => {
+    // let data = myJson
+    console.log(data.data);
   })
 }
+// componentDidMount(event) {
+// fetch('http://localhost:3003/data', {
+//     method: 'POST',
+//     content: 'application/json',
+//     body: JSON.stringify({
+//       email: '',
+//       username: '',
+//     })
+//   })
+// }
 
 
   signUpHandler = () => {
@@ -46,12 +42,19 @@ class App extends Component {
       this.setState({
         signedUp: true
       })
+
+      console.log(this.state.email);
+      console.log(this.state.username);
+
+        fetch(`http://localhost:3003/register?email=${this.state.email}.com&username=${this.state.username}`)
+
     } else {
       return 
     }
   }
   emailHandler = (event) => {
     this.setState({ email: event.target.value })
+    console.log(event.target.value)
   }
 
 
@@ -88,7 +91,7 @@ class App extends Component {
   render(){
     let reminderList = this.state.reminders
 
-  const displayReminders = reminderList.map(x => <DisplayReminders reminders = {x} deleteHandler={this.deleteHandler}/>)
+    const displayReminders = reminderList.map(x => <DisplayReminders reminders={x} deleteHandler={this.deleteHandler}/>)
   return (
     <div className="App">
         {(this.state.signedUp)?
