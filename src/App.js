@@ -15,7 +15,16 @@ class App extends Component {
   }
 
 
-  fetch('http://localhost:3003/data')
+ componentDidMount() {
+  fetch('http://localhost:3003/data', {
+    method: 'POST',
+    content: 'application/json',
+    body: JSON.stringify({
+      email: '',
+      username: '',
+      reminder: ''
+    })
+  })
   .then(function(response) {
     return response.json();
   })
@@ -23,6 +32,10 @@ class App extends Component {
     let data = myJson
     return data;
   })
+  .then(function(data) {
+    console.log('hello from data');
+  })
+}
 
   signUpHandler = () => {
     if (this.state.email != null && this.state.username != null) {
