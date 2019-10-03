@@ -14,6 +14,31 @@ class App extends Component {
     username: ''
   }
 
+
+
+ componentDidMount() {
+  fetch('http://localhost:3003/data', {
+    method: 'POST',
+    content: 'application/json',
+    body: JSON.stringify({
+      email: '',
+      username: '',
+      reminder: ''
+    })
+  })
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    let data = myJson
+    return data;
+  })
+  .then(function(data) {
+    console.log('hello from data');
+  })
+}
+
+
   signUpHandler = () => {
     if (this.state.email != null && this.state.username != null) {
       this.setState({
@@ -40,15 +65,6 @@ class App extends Component {
   }
 
   render(){
-
-    fetch('http://localhost:3003/data')
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(myJson) {
-      let data = myJson
-      return data;
-    })
   return (
     <div className="App">
         {(this.state.signedUp)?<SignIn forgotUser={this.state.forgotUser} forgotHandler={this.forgotHandler}/>:<SignUp  emailHandler={this.emailHandler} usernameHandler={this.usernameHandler} signedUpHandler ={this.signUpHandler}/>}
