@@ -67,7 +67,9 @@ class App extends Component {
   render(){
   return (
     <div className="App">
-        {(this.state.signedUp)?<SignIn forgotUser={this.state.forgotUser} forgotHandler={this.forgotHandler}/>:<SignUp  emailHandler={this.emailHandler} usernameHandler={this.usernameHandler} signedUpHandler ={this.signUpHandler}/>}
+        {(this.state.signedUp)?
+        <SignIn forgotUser={this.state.forgotUser} forgotHandler={this.forgotHandler}/> :
+        <SignUp  emailHandler={this.emailHandler} usernameHandler={this.usernameHandler} signedUpHandler ={this.signUpHandler}/>}
         <h1>{this.state.email}</h1>
         <Reminder />
     </div>
