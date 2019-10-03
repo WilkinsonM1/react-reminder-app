@@ -3,6 +3,7 @@ import './App.css';
 import SignIn from './components/signIn';
 import SignUp from './components/signUp';
 import Reminder from './components/reminder';
+import DisplayReminders from './components/displayReminders';
 
 class App extends Component {
 
@@ -11,7 +12,8 @@ class App extends Component {
     forgotUser: false,
     signedUp: false,
     email: '',
-    username: ''
+    username: '',
+    reminders: []
   }
 
 
@@ -57,19 +59,37 @@ class App extends Component {
     this.setState({ username: event.target.value})
   }
 
+  reminderHandler = (event) => {
+    let input = event.target.value;
+    this.state.reminders.push(input)
+    this.setState({ reminders: this.state.reminders});
+    console.log(this.state.reminders);
+  }
+
+  runReminderHandler = () => {
+    this.reminderHandler()
+  }
 
   forgotHandler = () => {
     this.setState({
       forgotUser: true
     })
   }
+  
+  // key={this.state.reminder.indexOf(reminders)}
+
+
 
   render(){
+    // let reminderList = this.state.reminders
+
+  // const displayReminders = reminderList.map(x => <DisplayReminders reminders = {x} />)
   return (
     <div className="App">
         {(this.state.signedUp)?<SignIn forgotUser={this.state.forgotUser} forgotHandler={this.forgotHandler}/>:<SignUp  emailHandler={this.emailHandler} usernameHandler={this.usernameHandler} signedUpHandler ={this.signUpHandler}/>}
         <h1>{this.state.email}</h1>
-        <Reminder />
+        <Reminder runReminderHandler={this.runReminderHandler} reminderHandler={this.reminderHandler}/>
+        {/* {displayReminders} */}
     </div>
   )};
 
