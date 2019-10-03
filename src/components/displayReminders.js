@@ -16,7 +16,7 @@ return (
             <h3 contentEditable={true}>
                 {props.reminders}
             </h3>
-            <button onClick={props.deleteHandler}></button>
+            <button onClick={props.deleteHandler}>X</button>
             <hr/>
         </ul>
         

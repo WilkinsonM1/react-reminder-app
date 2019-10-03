@@ -70,6 +70,11 @@ class App extends Component {
     this.reminderHandler()
   }
 
+  deleteHandler = () => {
+    this.state.reminders.pop()
+    this.setState({ reminders: this.state.reminders});
+  }
+
   forgotHandler = () => {
     this.setState({
       forgotUser: true
@@ -81,15 +86,15 @@ class App extends Component {
 
 
   render(){
-    // let reminderList = this.state.reminders
+    let reminderList = this.state.reminders
 
-  // const displayReminders = reminderList.map(x => <DisplayReminders reminders = {x} />)
+  const displayReminders = reminderList.map(x => <DisplayReminders reminders = {x} deleteHandler={this.deleteHandler}/>)
   return (
     <div className="App">
         {(this.state.signedUp)?<SignIn forgotUser={this.state.forgotUser} forgotHandler={this.forgotHandler}/>:<SignUp  emailHandler={this.emailHandler} usernameHandler={this.usernameHandler} signedUpHandler ={this.signUpHandler}/>}
         <h1>{this.state.email}</h1>
         <Reminder runReminderHandler={this.runReminderHandler} reminderHandler={this.reminderHandler}/>
-        {/* {displayReminders} */}
+        {displayReminders}
     </div>
   )};
 
