@@ -91,7 +91,9 @@ class App extends Component {
   const displayReminders = reminderList.map(x => <DisplayReminders reminders = {x} deleteHandler={this.deleteHandler}/>)
   return (
     <div className="App">
-        {(this.state.signedUp)?<SignIn forgotUser={this.state.forgotUser} forgotHandler={this.forgotHandler}/>:<SignUp  emailHandler={this.emailHandler} usernameHandler={this.usernameHandler} signedUpHandler ={this.signUpHandler}/>}
+        {(this.state.signedUp)?
+        <SignIn forgotUser={this.state.forgotUser} forgotHandler={this.forgotHandler}/> :
+        <SignUp  emailHandler={this.emailHandler} usernameHandler={this.usernameHandler} signedUpHandler ={this.signUpHandler}/>}
         <h1>{this.state.email}</h1>
         <Reminder runReminderHandler={this.runReminderHandler} reminderHandler={this.reminderHandler}/>
         {displayReminders}
