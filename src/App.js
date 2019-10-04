@@ -12,6 +12,7 @@ class App extends Component {
     forgotUser: false,
     signedUp: false,
     signedIn: false,
+    userId: 0,
     email: '',
     username: '',
     reminders: [],
@@ -48,20 +49,25 @@ class App extends Component {
       console.log(this.state.email);
       console.log(this.state.username);
 
-        fetch(`http://localhost:3003/register?email=${this.state.email}.com&username=${this.state.username}`, {mode: "no-cors"})
+      fetch(`http://localhost:3003/register?email=${this.state.email}.com&username=${this.state.username}`, {mode: "no-cors"})
 
     } else {
       return 
     }
   }
   emailHandler = (event) => {
-    this.setState({ email: event.target.value })
-    console.log(event.target.value)
+    this.setState({ email: event.target.value });
+    console.log(event.target.value);
   }
 
 
   usernameHandler = (event) => {
     this.setState({ username: event.target.value})
+  }
+
+  userIdHandler = () => {
+    console.log(this.state.username);
+    // this.state.signedIn ? this.setState({ userId: 1 }) : ;
   }
 
   reminderHandler = (event) => {
@@ -74,7 +80,7 @@ class App extends Component {
     console.log(this.state.newReminder);
   }
 
-  runReminderHandler = () => {
+  addReminder = () => {
     fetch(`http://localhost:3003/reminder?reminder=${this.state.newReminder}`, {mode: "no-cors"})
   }
 
@@ -103,7 +109,7 @@ class App extends Component {
         <SignIn forgotUser={this.state.forgotUser} forgotHandler={this.forgotHandler}/> :
         <SignUp  emailHandler={this.emailHandler} usernameHandler={this.usernameHandler} signedUpHandler ={this.signUpHandler}/>}
         
-        {(this.state.signedIn)?<Reminder runReminderHandler={this.runReminderHandler} reminderHandler={this.reminderHandler}/> : null
+        {(this.state.signedIn)?<Reminder addReminder={this.addReminder} reminderHandler={this.reminderHandler}/> : null
         }
         
         {/* {displayReminders} */}
