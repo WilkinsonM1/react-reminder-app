@@ -15,6 +15,7 @@ class App extends Component {
     userId: 0,
     email: '',
     username: '',
+    signInUser: '',
     reminders: [],
     newReminder: ''
   }
@@ -55,6 +56,12 @@ class App extends Component {
       return 
     }
   }
+
+  signInHandler = () => {
+  if(this.state.signInUser != null){
+     this.setState({ signedIn: true })
+   }
+  }
   emailHandler = (event) => {
     this.setState({ email: event.target.value });
     console.log(event.target.value);
@@ -63,6 +70,10 @@ class App extends Component {
 
   usernameHandler = (event) => {
     this.setState({ username: event.target.value})
+  }
+  signedInUserHandler = event => {
+    event.preventDefault()
+    this.setState({ signInUser: event.target.value })
   }
 
   userIdHandler = () => {
@@ -106,11 +117,13 @@ class App extends Component {
   return (
     <div className="App">
         {(this.state.signedUp)?
-        <SignIn forgotUser={this.state.forgotUser} forgotHandler={this.forgotHandler}/> :
+        <SignIn forgotUser={this.state.forgotUser} forgotHandler={this.forgotHandler} signInHandler={this.signInHandler} signedInUserHandler={this.signedInUserHandler}/> :
         <SignUp  emailHandler={this.emailHandler} usernameHandler={this.usernameHandler} signedUpHandler ={this.signUpHandler}/>}
         
+
         {(this.state.signedIn)?<Reminder addReminder={this.addReminder} reminderHandler={this.reminderHandler}/> : null
         }
+
         
         {/* {displayReminders} */}
         
@@ -121,7 +134,3 @@ class App extends Component {
 
 export default App;
 
-/*
-<SignUp/>
-<SignIn forgotUser={this.state.forgotUser} forgotHandler={this.forgotHandler}/>
-     */
