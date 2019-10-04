@@ -11,6 +11,7 @@ class App extends Component {
   state = {
     forgotUser: false,
     signedUp: false,
+    signedIn: false,
     email: '',
     username: '',
     reminders: [],
@@ -47,7 +48,7 @@ class App extends Component {
       console.log(this.state.email);
       console.log(this.state.username);
 
-        fetch(`http://localhost:3003/register?email=${this.state.email}.com&username=${this.state.username}`)
+        fetch(`http://localhost:3003/register?email=${this.state.email}.com&username=${this.state.username}`, {mode: "no-cors"})
 
     } else {
       return 
@@ -74,7 +75,7 @@ class App extends Component {
   }
 
   runReminderHandler = () => {
-    fetch(`http://localhost:3003/reminder?reminder=${this.state.newReminder}`)
+    fetch(`http://localhost:3003/reminder?reminder=${this.state.newReminder}`, {mode: "no-cors"})
   }
 
   deleteHandler = () => {
@@ -101,7 +102,6 @@ class App extends Component {
         {(this.state.signedUp)?
         <SignIn forgotUser={this.state.forgotUser} forgotHandler={this.forgotHandler}/> :
         <SignUp  emailHandler={this.emailHandler} usernameHandler={this.usernameHandler} signedUpHandler ={this.signUpHandler}/>}
-        <h1>{this.state.email}</h1>
         <Reminder runReminderHandler={this.runReminderHandler} reminderHandler={this.reminderHandler}/>
         {displayReminders}
     </div>
