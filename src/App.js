@@ -13,7 +13,8 @@ class App extends Component {
     signedUp: false,
     email: '',
     username: '',
-    reminders: []
+    reminders: [],
+    newReminder: ''
   }
 
 
@@ -63,14 +64,17 @@ class App extends Component {
   }
 
   reminderHandler = (event) => {
-    let input = event.target.value;
-    this.state.reminders.push(input)
-    this.setState({ reminders: this.state.reminders});
-    console.log(this.state.reminders);
+    // let input = event.target.value;
+    // this.state.reminders.push(input)
+    this.setState({ newReminder: event.target.value});
+    
+   
+
+    console.log(this.state.newReminder);
   }
 
   runReminderHandler = () => {
-    this.reminderHandler()
+    fetch(`http://localhost:3003/reminder?reminder=${this.state.newReminder}`)
   }
 
   deleteHandler = () => {

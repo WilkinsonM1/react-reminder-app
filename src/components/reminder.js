@@ -5,8 +5,8 @@ function Reminder (props) {
     return (
         <div id='RCont'>
             <h1>New Reminder...</h1>
-            <input id='newReminder'  placeholder='add reminder...'></input>
-            <button id='addReminder' onClick={props.reminderHandler}>Add Reminder</button>
+            <input id='newReminder' onChange={event => props.reminderHandler(event)} placeholder='add reminder...'></input>
+            <button id='addReminder' onClick={props.runReminderHandler}>Add Reminder</button>
         </div>
     )
 }
