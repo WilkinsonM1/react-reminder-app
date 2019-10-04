@@ -20,12 +20,13 @@ const SignIn  = ( props ) => {
         return (
             <div className='sign-in'>
                 <h1>Sign in here:</h1>
-                <form className="sign-in-form" onSubmit={props.onSubmit}>
+                
                     <input  type='text'
                             className='input-username-sign-in'
-                            placeholder='Username'/>
+                            placeholder='Username'
+                            onChange={event => props.signedInUserHandler(event)}/>
                     <button onClick={props.signInHandler}>Submit</button>
-                </form>
+               
                 <p className='forgot-username' onClick={props.forgotHandler}>Forgot your username?</p>
             </div>
         )}
