@@ -102,8 +102,12 @@ class App extends Component {
         {(this.state.signedUp)?
         <SignIn forgotUser={this.state.forgotUser} forgotHandler={this.forgotHandler}/> :
         <SignUp  emailHandler={this.emailHandler} usernameHandler={this.usernameHandler} signedUpHandler ={this.signUpHandler}/>}
-        <Reminder runReminderHandler={this.runReminderHandler} reminderHandler={this.reminderHandler}/>
-        {displayReminders}
+        
+        {(this.state.signedIn)?<Reminder runReminderHandler={this.runReminderHandler} reminderHandler={this.reminderHandler}/> : null
+        }
+        
+        {/* {displayReminders} */}
+        
     </div>
   )};
 
