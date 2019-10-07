@@ -47,14 +47,17 @@ class App extends Component {
     }
   }
 
-  signInHandler = () => {
+  signInHandler = async () => {
     let data = fetch(`http://localhost:3003/checkUser?username=${this.state.signInUser}`, {mode: "no-cors"});
-    if(data[0].username === this.state.signInUser) {
+    
+    if(await data.data === this.state.signInUser) {
       this.setState({ signedIn: true });
+      console.log(this.state.signedIn);
     } else {
       this.setState({ signedIn: false });
+      console.log(this.state.signedIn)
     }
-    
+    console.log(data)
   }
 
   emailHandler = (event) => {
