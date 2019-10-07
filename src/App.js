@@ -27,18 +27,8 @@ class App extends Component {
   .then(data => {
     // let data = myJson
     console.log(data.data);
-  })
-}
-// componentDidMount(event) {
-// fetch('http://localhost:3003/data', {
-//     method: 'POST',
-//     content: 'application/json',
-//     body: JSON.stringify({
-//       email: '',
-//       username: '',
-//     })
-//   })
-// }
+    })
+  }
 
 
   signUpHandler = () => {
@@ -58,10 +48,15 @@ class App extends Component {
   }
 
   signInHandler = () => {
-  if(this.state.signInUser != null){
-     this.setState({ signedIn: true })
-   }
+    let data = fetch(`http://localhost:3003/checkUser?username=${this.state.signInUser}`, {mode: "no-cors"});
+    if(data[0].username === this.state.signInUser) {
+      this.setState({ signedIn: true });
+    } else {
+      this.setState({ signedIn: false });
+    }
+    
   }
+
   emailHandler = (event) => {
     this.setState({ email: event.target.value });
     console.log(event.target.value);
@@ -134,3 +129,13 @@ class App extends Component {
 
 export default App;
 
+// componentDidMount(event) {
+// fetch('http://localhost:3003/data', {
+//     method: 'POST',
+//     content: 'application/json',
+//     body: JSON.stringify({
+//       email: '',
+//       username: '',
+//     })
+//   })
+// }
