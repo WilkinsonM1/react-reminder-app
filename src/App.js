@@ -12,6 +12,7 @@ class App extends Component {
     forgotUser: false,
     signedUp: false,
     signedIn: false,
+    userId: 0,
     email: '',
     username: '',
     signInUser: '',
@@ -26,18 +27,8 @@ class App extends Component {
   .then(data => {
     // let data = myJson
     console.log(data.data);
-  })
-}
-// componentDidMount(event) {
-// fetch('http://localhost:3003/data', {
-//     method: 'POST',
-//     content: 'application/json',
-//     body: JSON.stringify({
-//       email: '',
-//       username: '',
-//     })
-//   })
-// }
+    })
+  }
 
 
   signUpHandler = () => {
@@ -49,7 +40,7 @@ class App extends Component {
       console.log(this.state.email);
       console.log(this.state.username);
 
-        fetch(`http://localhost:3003/register?email=${this.state.email}.com&username=${this.state.username}`, {mode: "no-cors"})
+      fetch(`http://localhost:3003/register?email=${this.state.email}.com&username=${this.state.username}`, {mode: "no-cors"})
 
     } else {
       return 
@@ -57,13 +48,18 @@ class App extends Component {
   }
 
   signInHandler = () => {
-  if(this.state.signInUser != null){
-     this.setState({ signedIn: true })
-   }
+    let data = fetch(`http://localhost:3003/checkUser?username=${this.state.signInUser}`, {mode: "no-cors"});
+    if(data[0].username === this.state.signInUser) {
+      this.setState({ signedIn: true });
+    } else {
+      this.setState({ signedIn: false });
+    }
+    
   }
+
   emailHandler = (event) => {
-    this.setState({ email: event.target.value })
-    console.log(event.target.value)
+    this.setState({ email: event.target.value });
+    console.log(event.target.value);
   }
 
 
@@ -73,6 +69,11 @@ class App extends Component {
   signedInUserHandler = event => {
     event.preventDefault()
     this.setState({ signInUser: event.target.value })
+  }
+
+  userIdHandler = () => {
+    console.log(this.state.username);
+    // this.state.signedIn ? this.setState({ userId: 1 }) : ;
   }
 
   reminderHandler = (event) => {
@@ -85,7 +86,7 @@ class App extends Component {
     console.log(this.state.newReminder);
   }
 
-  runReminderHandler = () => {
+  addReminder = () => {
     fetch(`http://localhost:3003/reminder?reminder=${this.state.newReminder}`, {mode: "no-cors"})
   }
 
@@ -114,7 +115,10 @@ class App extends Component {
         <SignIn forgotUser={this.state.forgotUser} forgotHandler={this.forgotHandler} signInHandler={this.signInHandler} signedInUserHandler={this.signedInUserHandler}/> :
         <SignUp  emailHandler={this.emailHandler} usernameHandler={this.usernameHandler} signedUpHandler ={this.signUpHandler}/>}
         
-        {(this.state.signedIn)?<Reminder runReminderHandler={this.runReminderHandler} reminderHandler={this.reminderHandler}/> : null}
+
+        {(this.state.signedIn)?<Reminder addReminder={this.addReminder} reminderHandler={this.reminderHandler}/> : null
+        }
+
         
         {/* {displayReminders} */}
         
@@ -125,3 +129,13 @@ class App extends Component {
 
 export default App;
 
+// componentDidMount(event) {
+// fetch('http://localhost:3003/data', {
+//     method: 'POST',
+//     content: 'application/json',
+//     body: JSON.stringify({
+//       email: '',
+//       username: '',
+//     })
+//   })
+// }
