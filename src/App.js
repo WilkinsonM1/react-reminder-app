@@ -8,15 +8,16 @@ import DisplayReminders from "./components/displayReminders";
 class App extends Component {
   state = {
     forgotUser: false,
-    signedUp: false,
-    signedIn: false,
+    
+    
     userId: 0,
     email: "",
     username: "",
     signInUser: "",
     reminders: [],
     newReminder: "",
-    register: false,
+    
+    status: 'not-registered'
   };
 
   // use async await to handle your fetches better FOR EXAMPLE
@@ -35,7 +36,8 @@ class App extends Component {
   signUpHandler = () => {
     if (this.state.email != null && this.state.username != null) {
       this.setState({
-        signedUp: true
+        // signedUp: true
+        status: 'signed-up'
       });
 
       console.log(this.state.email);
@@ -63,7 +65,11 @@ class App extends Component {
     
 
     if (data) {
-      this.setState({ signedIn: true });
+      this.setState({ 
+        // signedIn: true, 
+        // signedUp: true,
+        status: 'signed-in'
+      });
       console.log(this.state.signedIn);
     } else {
       this.setState({ signedIn: false });
@@ -119,10 +125,39 @@ class App extends Component {
 
   registerHandler = () => {
     this.setState({
-      register: true
+      status: 'registering'
     });
 
   };
+
+  show = () => {
+    
+    if(this.state.status == 'signed-up' || this.state.status == 'not-registered'){
+      return(
+      <SignIn
+        forgotUser={this.state.forgotUser}
+        forgotHandler={this.forgotHandler}
+        signInHandler={this.signInHandler}
+        signedInUserHandler={this.signedInUserHandler}
+        registerHandler={this.registerHandler}
+        />)
+    }
+    else if(this.state.status == 'registering'){
+     return( <SignUp
+        emailHandler={this.emailHandler}
+        usernameHandler={this.usernameHandler}
+        signedUpHandler={this.signUpHandler}
+        />)
+    }
+    else if(this.state.status == 'signed-in'){
+      return(<Reminder
+            addReminder={this.addReminder}
+            reminderHandler={this.reminderHandler}
+            signInUser={this.state.signInUser}
+          />)
+    }
+
+  }
 
   // key={this.state.reminder.indexOf(reminders)}
 
@@ -158,9 +193,9 @@ class App extends Component {
 
         {/* {displayReminders} */}
 
-
+        
         <h1>Reminder App!</h1>
-        {this.state.register? 
+         {/* {this.state.register? 
         <SignUp
         emailHandler={this.emailHandler}
         usernameHandler={this.usernameHandler}
@@ -176,23 +211,21 @@ class App extends Component {
         signInHandler={this.signInHandler}
         signedInUserHandler={this.signedInUserHandler}
         registerHandler={this.registerHandler}
-      />
+        />
         }
 
-        {/* // <SignIn */}
-        {/* //     forgotUser={this.state.forgotUser}
-        //     forgotHandler={this.forgotHandler}
-        //     signInHandler={this.signInHandler}
-        //     signedInUserHandler={this.signedInUserHandler}
-        //     registerHandler={this.registerHandler}
-        //   /> */}
+       
 
         {this.state.signedIn ? (
           <Reminder
             addReminder={this.addReminder}
             reminderHandler={this.reminderHandler}
+            signInUser={this.state.signInUser}
           />
-        ) : null}
+        ) : null}  */}
+
+        {this.show()}
+       
 
         
 
