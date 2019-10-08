@@ -12,7 +12,8 @@ const SignIn  = ( props ) => {
                 <form className="sign-in-form" onSubmit={props.onSubmit}>
                     <input type='text' className='input-email-sign-in'
                             placeholder='Email'/>
-                    <button onClick={props.signInHandler}>Submit</button>
+                    <button onClick={props.signInHandler}>Login</button>
+                    <button onClick={props.registerHandler}>Register</button>
                 </form>
             </div>
         )
@@ -25,7 +26,8 @@ const SignIn  = ( props ) => {
                             className='input-username-sign-in'
                             placeholder='Username'
                             onChange={event => props.signedInUserHandler(event)}/>
-                    <button onClick={props.signInHandler}>Submit</button>
+                    <button onClick={props.signInHandler}>Login</button>
+                    <button onClick={props.registerHandler}>Register</button>
                
                 <p className='forgot-username' onClick={props.forgotHandler}>Forgot your username?</p>
             </div>
