@@ -15,7 +15,8 @@ class App extends Component {
     username: "",
     signInUser: "",
     reminders: [],
-    newReminder: ""
+    newReminder: "",
+    register: false,
   };
 
   // use async await to handle your fetches better FOR EXAMPLE
@@ -50,19 +51,27 @@ class App extends Component {
   };
 
   signInHandler = async () => {
-    let data = fetch(
+    let data = await fetch(
       `http://localhost:3003/checkUser?username=${this.state.signInUser}`,
       { mode: "no-cors" }
     );
 
-    if ((await data.data) === this.state.signInUser) {
+    console.log(data)
+    // .then( (result)=> {
+    //     console.log(result)
+    // })
+    
+
+    if (data) {
       this.setState({ signedIn: true });
       console.log(this.state.signedIn);
     } else {
       this.setState({ signedIn: false });
+      alert("incorrect username entered")
       console.log(this.state.signedIn);
     }
-    console.log(data);
+    
+ 
   };
 
   emailHandler = event => {
@@ -108,6 +117,13 @@ class App extends Component {
     });
   };
 
+  registerHandler = () => {
+    this.setState({
+      register: true
+    });
+
+  };
+
   // key={this.state.reminder.indexOf(reminders)}
 
   render() {
@@ -118,7 +134,7 @@ class App extends Component {
     ));
     return (
       <div className="App">
-        {this.state.signedUp ? (
+        {/* {this.state.signedUp ? (
           <SignIn
             forgotUser={this.state.forgotUser}
             forgotHandler={this.forgotHandler}
@@ -138,9 +154,48 @@ class App extends Component {
             addReminder={this.addReminder}
             reminderHandler={this.reminderHandler}
           />
-        ) : null}
+        ) : null} */}
 
         {/* {displayReminders} */}
+
+
+        <h1>Reminder App!</h1>
+        {this.state.register? 
+        <SignUp
+        emailHandler={this.emailHandler}
+        usernameHandler={this.usernameHandler}
+        signedUpHandler={this.signUpHandler}
+        />
+
+      :
+
+        
+        <SignIn
+        forgotUser={this.state.forgotUser}
+        forgotHandler={this.forgotHandler}
+        signInHandler={this.signInHandler}
+        signedInUserHandler={this.signedInUserHandler}
+        registerHandler={this.registerHandler}
+      />
+        }
+
+        {/* // <SignIn */}
+        {/* //     forgotUser={this.state.forgotUser}
+        //     forgotHandler={this.forgotHandler}
+        //     signInHandler={this.signInHandler}
+        //     signedInUserHandler={this.signedInUserHandler}
+        //     registerHandler={this.registerHandler}
+        //   /> */}
+
+        {this.state.signedIn ? (
+          <Reminder
+            addReminder={this.addReminder}
+            reminderHandler={this.reminderHandler}
+          />
+        ) : null}
+
+        
+
       </div>
     );
   }
