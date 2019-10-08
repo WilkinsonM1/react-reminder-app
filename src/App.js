@@ -58,7 +58,7 @@ class App extends Component {
       { mode: "no-cors" }
     );
 
-    let user_id = await fetch (
+   await fetch (
       `http://localhost:3003/checkUserId?username=${this.state.signInUser}`
     )
       .then(response => response.json())
@@ -69,6 +69,19 @@ class App extends Component {
         console.log(data.data)
         console.log(this.state.persons_id)
       })
+
+
+    await fetch (
+      `http://localhost:3003/reminder-list?persons_id=${this.state.persons_id}`
+    )
+     .then(response => response.json())
+     .then((data) => {
+        this.setState({
+          reminders: [data.data]
+        })
+        console.log(data)
+
+     })
 
     // console.log(data)
 
