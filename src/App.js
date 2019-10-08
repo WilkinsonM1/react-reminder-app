@@ -10,7 +10,7 @@ class App extends Component {
     forgotUser: false,
     
     
-    userId: 0,
+    persons_id: 0,
     email: "",
     username: "",
     signInUser: "",
@@ -58,7 +58,21 @@ class App extends Component {
       { mode: "no-cors" }
     );
 
-    console.log(data)
+    let user_id = await fetch (
+      `http://localhost:3003/checkUserId?username=${this.state.signInUser}`
+    )
+      .then(response => response.json())
+      .then((data) => {
+        this.setState({
+          persons_id: data.data
+        })
+        console.log(data.data)
+        console.log(this.state.persons_id)
+      })
+
+    // console.log(data)
+
+    
     // .then( (result)=> {
     //     console.log(result)
     // })
@@ -70,13 +84,14 @@ class App extends Component {
         // signedUp: true,
         status: 'signed-in'
       });
-      console.log(this.state.signedIn);
+      
     } else {
       this.setState({ signedIn: false });
       alert("incorrect username entered")
-      console.log(this.state.signedIn);
+   
     }
     
+   
  
   };
 
@@ -129,6 +144,8 @@ class App extends Component {
     });
 
   };
+
+
 
   show = () => {
     
