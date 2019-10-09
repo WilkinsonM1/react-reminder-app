@@ -76,8 +76,9 @@ class App extends Component {
     )
      .then(response => response.json())
      .then((data) => {
+       const reminderArr = data.data.map(reminders => reminders.reminder)
         this.setState({
-          reminders: [data.data]
+          reminders: reminderArr
         })
         console.log(data)
 
@@ -184,7 +185,8 @@ class App extends Component {
             addReminder={this.addReminder}
             reminderHandler={this.reminderHandler}
             signInUser={this.state.signInUser}
-          />)
+          />
+          )
     }
 
   }
@@ -199,62 +201,11 @@ class App extends Component {
     ));
     return (
       <div className="App">
-        {/* {this.state.signedUp ? (
-          <SignIn
-            forgotUser={this.state.forgotUser}
-            forgotHandler={this.forgotHandler}
-            signInHandler={this.signInHandler}
-            signedInUserHandler={this.signedInUserHandler}
-          />
-        ) : (
-          <SignUp
-            emailHandler={this.emailHandler}
-            usernameHandler={this.usernameHandler}
-            signedUpHandler={this.signUpHandler}
-          />
-        )}
-
-        {this.state.signedIn ? (
-          <Reminder
-            addReminder={this.addReminder}
-            reminderHandler={this.reminderHandler}
-          />
-        ) : null} */}
-
-        {/* {displayReminders} */}
-
-        
-        <h1>Reminder App!</h1>
-         {/* {this.state.register? 
-        <SignUp
-        emailHandler={this.emailHandler}
-        usernameHandler={this.usernameHandler}
-        signedUpHandler={this.signUpHandler}
-        />
-
-      :
-
-        
-        <SignIn
-        forgotUser={this.state.forgotUser}
-        forgotHandler={this.forgotHandler}
-        signInHandler={this.signInHandler}
-        signedInUserHandler={this.signedInUserHandler}
-        registerHandler={this.registerHandler}
-        />
-        }
-
-       
-
-        {this.state.signedIn ? (
-          <Reminder
-            addReminder={this.addReminder}
-            reminderHandler={this.reminderHandler}
-            signInUser={this.state.signInUser}
-          />
-        ) : null}  */}
+         <h1>Reminder App!</h1>
+         
 
         {this.show()}
+        {displayReminders}
        
 
         
