@@ -68,7 +68,7 @@ class App extends Component {
         })
         console.log(data.data)
         console.log(this.state.persons_id)
-      })
+      });
 
 
     await fetch (
@@ -82,7 +82,7 @@ class App extends Component {
         })
         console.log(data)
 
-     })
+     });
 
     // console.log(data)
 
@@ -135,10 +135,22 @@ class App extends Component {
     console.log(this.state.newReminder);
   };
 
-  addReminder = () => {
-    fetch(`http://localhost:3003/reminder?reminder=${this.state.newReminder}`, {
+  addReminder = async () => {
+     fetch(`http://localhost:3003/reminder?reminder=${this.state.newReminder}&persons_id=${this.state.persons_id}`, {
       mode: "no-cors"
     });
+
+    await fetch (
+      `http://localhost:3003/reminder-list?persons_id=${this.state.persons_id}`
+    )
+     .then(response => response.json())
+     .then((data) => {
+       const reminderArr = data.data.map(reminders => reminders.reminder)
+        this.setState({
+          reminders: reminderArr
+        })})
+
+    
   };
 
   deleteHandler = () => {
