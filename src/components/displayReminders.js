@@ -13,7 +13,7 @@ const DisplayReminders = (props) => {
 return (
     <div>
         <ul>
-            <h3 contentEditable={true}>
+            <h3 >
                 {props.reminders}
             </h3>
             <button onClick={props.deleteHandler}>X</button>
