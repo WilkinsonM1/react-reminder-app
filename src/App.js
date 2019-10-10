@@ -22,13 +22,13 @@ class App extends Component {
 
   // use async await to handle your fetches better FOR EXAMPLE
   async componentDidMount() {
-    // fetch('http://localhost:3003/data')
+    // fetch('/data')
     // .then(response => response.json())
     // .then(data => {
     //   // let data = myJson
     //   console.log(data.data);
     //   })
-    let response = await fetch("http://localhost:3003/data");
+    let response = await fetch("/data");
     let data = await response.json();
     console.log(data);
   }
@@ -44,7 +44,7 @@ class App extends Component {
       console.log(this.state.username);
 
       fetch(
-        `http://localhost:3003/register?email=${this.state.email}.com&username=${this.state.username}`,
+        `remotemysql.com/register?email=${this.state.email}.com&username=${this.state.username}`,
         { mode: "no-cors" }
       );
     } else {
@@ -54,12 +54,12 @@ class App extends Component {
 
   signInHandler = async () => {
     let data = await fetch(
-      `http://localhost:3003/checkUser?username=${this.state.signInUser}`,
+      `/checkUser?username=${this.state.signInUser}`,
       { mode: "no-cors" }
     );
 
    await fetch (
-      `http://localhost:3003/checkUserId?username=${this.state.signInUser}`
+      `/checkUserId?username=${this.state.signInUser}`
     )
       .then(response => response.json())
       .then((data) => {
@@ -72,7 +72,7 @@ class App extends Component {
 
 
     await fetch (
-      `http://localhost:3003/reminder-list?persons_id=${this.state.persons_id}`
+      `/reminder-list?persons_id=${this.state.persons_id}`
     )
      .then(response => response.json())
      .then((data) => {
@@ -136,12 +136,12 @@ class App extends Component {
   };
 
   addReminder = async () => {
-     fetch(`http://localhost:3003/reminder?reminder=${this.state.newReminder}&persons_id=${this.state.persons_id}`, {
+     fetch(`/reminder?reminder=${this.state.newReminder}&persons_id=${this.state.persons_id}`, {
       mode: "no-cors"
     });
 
     await fetch (
-      `http://localhost:3003/reminder-list?persons_id=${this.state.persons_id}`
+      `/reminder-list?persons_id=${this.state.persons_id}`
     )
      .then(response => response.json())
      .then((data) => {
@@ -230,7 +230,7 @@ class App extends Component {
 export default App;
 
 // componentDidMount(event) {
-// fetch('http://localhost:3003/data', {
+// fetch('/data', {
 //     method: 'POST',
 //     content: 'application/json',
 //     body: JSON.stringify({
